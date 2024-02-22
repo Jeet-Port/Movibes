@@ -9,6 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import CircularRate from "../components/common/CircularRate";
 import Container from "../components/common/Container";
@@ -227,7 +228,8 @@ const MediaDetail = () => {
                         sx={{ width: "max-content"}}
                         size="large"
                         startIcon={<TheatersIcon />}
-                        // onClick={}
+                        component={Link}
+                        to={`/movie/${mediaId}/ticket-seat-selection`}
                       >
                         Book Ticket
                       </Button>

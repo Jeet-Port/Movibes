@@ -8,11 +8,13 @@ import PasswordUpdate from "../pages/PasswordUpdate";
 import ReviewList from "../pages/ReviewList";
 import ProtectedPage from "../components/common/ProtectedPage"
 import AdminPage from "../pages/AdminPage";
+import TicketBooking from "../pages/ TicketBooking";
 
 export const routesGen ={
     home: "/",
     mediaList: (type) => `/${type}`,
     mediaDetail: (type, id) => `/${type}/${id}`,
+    ticketBooking: (type, id) => `/${type}/${id}/ticket-seat-selection`,
     mediaSearch: "/search",
     person: (id) => `/person/${id}`,
     favoriteList: "/favorites",
@@ -70,6 +72,10 @@ const routes = [
     {
         path: "/:mediaType/:mediaId",
         element: <MediaDetail />
+    },
+    {
+        path: "/:mediaType/:mediaId/ticket-seat-selection",
+        element: <TicketBooking />
     },
     {
         path: "/admin",

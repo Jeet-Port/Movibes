@@ -97,6 +97,11 @@ router.post(
     favoriteController.addFavorite
 );
 
+router.get(
+    "/movie/:mediaId/ticket-seat-selection",
+    tokenMiddleware.auth,
+)
+
 router.delete(
     "/favorites/:favoriteId",
     tokenMiddleware.auth,
