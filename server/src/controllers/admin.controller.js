@@ -7,9 +7,22 @@ const add = async (req, res) => {
             mediaId: req.body.mediaId
         });
 
-        if (isAvailable) return responseHandler.ok(res, isAvailable);
-
-
+        if (isAvailable) {
+            await availablemovieModel.findOneAndUpdate(
+                { mediaId: req.body.mediaId },
+                { 
+                    $set: { 
+                        isAvailable: req.body.isAvailable,
+                        normal: req.body.normal,
+                        executive: req.body.executive,
+                        premium: req.body.premium
+                    }
+                },
+                { new: true }
+            );
+            return responseHandler.ok(res, isAvailable);
+        }        
+        
         const availableMovie = new availablemovieModel({
             ...req.body,
         })

@@ -66,7 +66,6 @@ const signin = async (req, res) => {
 
 const updatePassword = async (req, res) => {
   try {
-    console.log(req);
     const { password, newPassword } = req.body;
 
     const user = await userModel.findById(req.user.id).select("password id salt");
