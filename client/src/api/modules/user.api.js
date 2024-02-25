@@ -6,6 +6,7 @@ const userEndpoints = {
     signup: "user/signup",
     getInfo: "user/info",
     passwordUpdate: "user/update-password",
+    bookTicket: "user/ticket-booking",
 }
 
 const userApi = {
@@ -59,6 +60,25 @@ const userApi = {
 
             return { response }
         } catch (err) { console.log(err);return { err }; }
+    },
+    bookTicket: async ({ mediaId, mediaName, total, showTime, seats}) => {
+      try {
+        const response = await privateClient.post(
+          userEndpoints.bookTicket,
+          { mediaId, mediaName, total, showTime, seats}
+        );
+
+        return { response }
+      } catch (err) {
+          console.error('Error in userApi.bookTicket:', err);
+            return {
+              err: {
+                status: err.response?.status || 500,
+                message: err.message || 'Internal Server Error',
+                data: err.response?.data || null,
+              },
+            };
+        }
     }
 };
 

@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import ticketBookingModel from "../models/ticketBooking.model.js"
 import jsonwebtoken from "jsonwebtoken";
 import responseHandler from "../handlers/response.handler.js";
 
@@ -87,7 +88,6 @@ const updatePassword = async (req, res) => {
 
 const getInfo = async (req, res) => {
   try {
-    console.log(req.user);
 
     const user = await userModel.findById(req.user.id);
 
@@ -99,9 +99,29 @@ const getInfo = async (req, res) => {
   }
 };
 
+const bookTicket = async (req, res) => {
+  try {
+    
+    const data = req.body
+    data["username"] = req.user.displayName;
+
+    console.log(data);
+
+    const ticket = new ticketBookingModel(data);
+    console.log(ticket);
+
+    await ticket.save();
+
+    responseHandler.ok(res, ticket);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
 export default {
   signup,
   signin,
   getInfo,
-  updatePassword
+  updatePassword,
+  bookTicket
 };

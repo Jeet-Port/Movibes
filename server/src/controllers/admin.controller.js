@@ -66,8 +66,22 @@ const getMovie = async (req, res) => {
     }
 };
 
+const getPrice = async ( req, res ) => {
+    try {
+        const { mediaId } = req.params;
+
+        const moviePrice = await availablemovieModel.findOne({ mediaId });
+
+        return responseHandler.ok(res, moviePrice)
+
+    } catch (err) {
+        responseHandler.error(res, error);
+    }
+}
+
 export default {
     add,
     remove,
     getMovie,
+    getPrice,
 }

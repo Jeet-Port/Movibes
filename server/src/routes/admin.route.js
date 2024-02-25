@@ -36,4 +36,11 @@ router.get(
     adminController.getMovie,
 )
 
+router.get(
+    "/getPrice/:mediaId",
+    body("mediaId")
+        .exists().withMessage("mediaId is required"),
+    adminController.getPrice,
+)
+
 export default router;

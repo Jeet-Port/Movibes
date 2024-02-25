@@ -108,4 +108,26 @@ router.delete(
     favoriteController.removeFavorite,
 )
 
+router.post(
+    "/ticket-booking",
+    tokenMiddleware.auth,
+    body("mediaId")
+        .exists().withMessage("Media ID is required")
+        .isString().withMessage("Media ID must be a string"),
+    body("mediaName")
+        .exists().withMessage("Media Name is required")
+        .isString().withMessage("Media Name must be a string"),
+    body("total")
+        .exists().withMessage("Total is required")
+        .isNumeric().withMessage("Total must be a number"),
+    // body("showTime")
+    //     .exists().withMessage("Show time is required")
+    //     .isString().withMessage("Show time must be a string"),
+    body("seats")
+        .exists().withMessage("Seats are required")
+        .isArray().withMessage("Seats must be an array"),
+    requestHandler.validate,
+    userController.bookTicket,
+);
+
 export default router;

@@ -4,7 +4,8 @@ import publicClient from "../client/public.client";
 const adminEndpoints = {
     add: "admin/add",
     remove: ({mediaId}) => `admin/remove/${mediaId}`,
-    getMovie: ({ mediaId }) => `admin/getMovie/${mediaId}`
+    getMovie: ({ mediaId }) => `admin/getMovie/${mediaId}`,
+    getPrice: ({ mediaId }) => `admin/getPrice/${mediaId}`,
 };
 
 const adminApi = {
@@ -49,6 +50,23 @@ const adminApi = {
         try{
             const response = await publicClient.get(
                 adminEndpoints.getMovie({ mediaId })
+            );
+            return {response}
+        } catch (err) {
+            console.error("Error in adminApi.getMovies:",err);
+            return {
+                err: {
+                  status: err.response?.status || 500,
+                  message: err.message || 'Internal Server Error',
+                  data: err.response?.data || null,
+                },
+            };
+        }
+    },
+    getPrice: async ({ mediaId }) => {
+        try{
+            const response = await publicClient.get(
+                adminEndpoints.getPrice({ mediaId })
             );
             return {response}
         } catch (err) {
