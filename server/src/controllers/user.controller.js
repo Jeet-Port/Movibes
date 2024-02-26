@@ -105,10 +105,7 @@ const bookTicket = async (req, res) => {
     const data = req.body
     data["username"] = req.user.displayName;
 
-    console.log(data);
-
     const ticket = new ticketBookingModel(data);
-    console.log(ticket);
 
     await ticket.save();
 
