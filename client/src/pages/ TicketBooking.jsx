@@ -145,7 +145,7 @@ const TicketBooking = () => {
               description="Book your ticket now"
               currency="INR"
             >
-              <Button variant="contained">Book Ticket</Button>
+              <LoadingButton variant="contained">Book Ticket</LoadingButton>
             </StripeCheckout>
 
           </Box>
