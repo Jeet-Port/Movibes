@@ -6,6 +6,7 @@ import SearchOffOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import React from "react";
 
 const main = [
@@ -36,6 +37,11 @@ const main = [
 ];
 
 const user = [
+    {
+        display: "my-tickets",
+        path: "/my-tickets",
+        icon: React.createElement(ConfirmationNumberIcon)
+    },
     {
         display: "favorites",
         path: "/favorites",
