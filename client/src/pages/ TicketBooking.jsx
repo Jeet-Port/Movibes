@@ -11,6 +11,8 @@ import userApi from "../api/modules/user.api";
 import { toast } from "react-toastify";
 import TheaterLayout from "../components/common/TheaterLayout";
 
+import StripeCheckout from 'react-stripe-checkout';
+
 const TicketBooking = () => {
   const { mediaType, mediaId } = useParams();
   const [media, setMedia] = useState();
@@ -65,7 +67,7 @@ const TicketBooking = () => {
     setTotalPrice(totalPrice);
   }, [selectedSeats, moviePrice]);
 
-  const handleBookTicket = useCallback(async () => {
+  const handlePaymentSuccess = useCallback(async () => {
     const seats = selectedSeats;
     const total = totalPrice;
     const mediaName =  media?.title || media?.name;
@@ -135,7 +137,17 @@ const TicketBooking = () => {
               </Typography>
             </Stack>
             <Toolbar />
-            <Button variant="contained" onClick={handleBookTicket}>Book Ticket</Button>
+            <StripeCheckout
+              token={handlePaymentSuccess}
+              stripeKey="pk_test_51Oo4VPSAfXWisHy3GJRmkcmE8qhBDnQLDBK403Tyu5HMvHwpp1t0BE4nYhODVCxNHnwMmJdjpU7Vh0zE9ogkc9YO002mzOIPc8"
+              amount={totalPrice * 100}
+              name="Ticket Booking"
+              description="Book your ticket now"
+              currency="INR"
+            >
+              <Button variant="contained">Book Ticket</Button>
+            </StripeCheckout>
+
           </Box>
       </Box>
     </>
