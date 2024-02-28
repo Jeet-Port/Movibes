@@ -30,7 +30,7 @@ const TheaterLayout = ({ setSelectedSeats }) => {
     };
 
     const rows = [
-        ["Normal"],
+        ["Premium"],
         ['1-premium', '2-premium', '3-premium', '4-premium', '5-premium'],
         [],
         ["Executive"],
@@ -38,7 +38,7 @@ const TheaterLayout = ({ setSelectedSeats }) => {
         ['6-executive', '7-executive', '8-executive', '9-executive', '10-executive', '11-executive'],
         ['12-executive', '13-executive', '14-executive', '15-executive', '16-executive', '17-executive'],
         [],
-        ["Premium"],
+        ["Normal"],
         [],
         ['18-normal', '19-normal', '20-normal', '21-normal', '22-normal', '23-normal', '24-normal'],
         ['25-normal', '26-normal', '27-normal', '28-normal', '29-normal', '30-normal', '31-normal'],

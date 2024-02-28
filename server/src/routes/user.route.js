@@ -120,9 +120,9 @@ router.post(
     body("total")
         .exists().withMessage("Total is required")
         .isNumeric().withMessage("Total must be a number"),
-    // body("showTime")
-    //     .exists().withMessage("Show time is required")
-    //     .isString().withMessage("Show time must be a string"),
+    body("showTime")
+        .exists().withMessage("Show time is required")
+        .isString().withMessage("Show time must be a string"),
     body("seats")
         .exists().withMessage("Seats are required")
         .isArray().withMessage("Seats must be an array"),
