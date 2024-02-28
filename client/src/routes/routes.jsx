@@ -9,6 +9,7 @@ import ReviewList from "../pages/ReviewList";
 import ProtectedPage from "../components/common/ProtectedPage"
 import AdminPage from "../pages/AdminPage";
 import TicketBooking from "../pages/ TicketBooking";
+import MyTicket from "../pages/MyTicket";
 
 export const routesGen ={
     home: "/",
@@ -75,11 +76,27 @@ const routes = [
     },
     {
         path: "/:mediaType/:mediaId/ticket-seat-selection",
-        element: <TicketBooking />
+        element: (
+            <ProtectedPage>
+                <TicketBooking />
+            </ProtectedPage>
+        )
+    },
+    {
+        path: "/my-tickets",
+        element: (
+            <ProtectedPage>
+                <MyTicket />
+            </ProtectedPage>
+        )
     },
     {
         path: "/admin",
-        element: <AdminPage />,
+        element: (
+            <ProtectedPage>
+                <AdminPage />
+            </ProtectedPage>
+        ),
         state: "admin"
     }
 ];

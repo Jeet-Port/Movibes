@@ -7,6 +7,7 @@ const userEndpoints = {
     getInfo: "user/info",
     passwordUpdate: "user/update-password",
     bookTicket: "user/ticket-booking",
+    allSeats: "user/all-seats",
 }
 
 const userApi = {
@@ -61,11 +62,11 @@ const userApi = {
             return { response }
         } catch (err) { console.log(err);return { err }; }
     },
-    bookTicket: async ({ mediaId, mediaName, total, showTime, seats}) => {
+    bookTicket: async ({ mediaId, mediaName, mediaType, total, showTime, seats}) => {
       try {
         const response = await privateClient.post(
           userEndpoints.bookTicket,
-          { mediaId, mediaName, total, showTime, seats}
+          { mediaId, mediaName, mediaType, total, showTime, seats}
         );
 
         return { response }
@@ -79,7 +80,14 @@ const userApi = {
               },
             };
         }
-    }
+    },
+    allSeats: async () => {
+      try {
+          const response = await privateClient.get(userEndpoints.allSeats);
+
+          return { response };
+      } catch (err) { return { err }; }
+  },
 };
 
 export default userApi;

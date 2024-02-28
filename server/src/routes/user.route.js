@@ -130,4 +130,10 @@ router.post(
     userController.bookTicket,
 );
 
+router.get(
+    "/all-seats",
+    tokenMiddleware.auth,
+    userController.getAllSeats
+);
+
 export default router;

@@ -101,17 +101,42 @@ const getInfo = async (req, res) => {
 
 const bookTicket = async (req, res) => {
   try {
-    
-    const data = req.body
+    const data = req.body;
     data["username"] = req.user.displayName;
 
-    const ticket = new ticketBookingModel(data);
+    const existingBooking = await ticketBookingModel.findOne({
+      username: data.username,
+      mediaName: data.mediaName,
+    });
 
-    await ticket.save();
+    if (existingBooking) {
+      existingBooking.seats = [...existingBooking.seats, ...data.seats];
+      existingBooking.seats = existingBooking.seats.filter(seat => seat !== null);
+      await existingBooking.save();
 
-    responseHandler.ok(res, ticket);
-  } catch {
-    responseHandler.error(res);
+      return responseHandler.ok(res, existingBooking);
+    } else {
+      const ticket = new ticketBookingModel(data);
+      await ticket.save();
+
+      return responseHandler.ok(res, ticket);
+    }
+  } catch (error) {
+    console.error("Error booking ticket:", error);
+    return responseHandler.error(res);
+  }
+};
+
+
+const getAllSeats = async (req, res) => {
+  try {
+    const seats = await ticketBookingModel.find();
+
+    responseHandler.ok(res, seats);
+
+  } catch (error) {
+    console.error("Error fetching seats:", error);
+    responseHandler.error(res, "Error fetching seats");
   }
 };
 
@@ -120,5 +145,6 @@ export default {
   signin,
   getInfo,
   updatePassword,
-  bookTicket
+  bookTicket,
+  getAllSeats,
 };

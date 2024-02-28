@@ -1,7 +1,7 @@
 import { Box, Typography, Divider, Stack, Toolbar, useMediaQuery, useTheme, Button } from "@mui/material"
 import { LoadingButton } from "@mui/lab";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import uiConfigs from "../configs/ui.configs";
 import tmdbConfigs from "../api/configs/tmdb.config";
@@ -20,7 +20,7 @@ const TicketBooking = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [moviePrice, setMoviePrice] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0); // Total price state
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
   
@@ -67,19 +67,21 @@ const TicketBooking = () => {
     setTotalPrice(totalPrice);
   }, [selectedSeats, moviePrice]);
 
-  const handlePaymentSuccess = useCallback(async () => {
+const handleBooking = useCallback(async () => {
     const seats = selectedSeats;
     const total = totalPrice;
-    const mediaName =  media?.title || media?.name;
-    const { response, err } = await userApi.bookTicket({ mediaId, mediaName, total, showTime: "9:00", seats});
+    const mediaName = media?.title || media?.name;
+    const { response, err } = await userApi.bookTicket({ mediaId, mediaName, mediaType, total, showTime: "9:00", seats });
 
     if (response) {
-      toast.success("Ticket Book SuccessFully");
+        toast.success("Ticket Book SuccessFully");
+        window.history.go(-1);
     }
 
     if (err) toast.error(err.message);
 
-  }, [media, mediaId, totalPrice, selectedSeats]);
+}, [media, mediaId, mediaType, totalPrice, selectedSeats, mediaType]);
+
 
   return (
     <>
@@ -138,7 +140,7 @@ const TicketBooking = () => {
             </Stack>
             <Toolbar />
             <StripeCheckout
-              token={handlePaymentSuccess}
+              token={handleBooking}
               stripeKey="pk_test_51Oo4VPSAfXWisHy3GJRmkcmE8qhBDnQLDBK403Tyu5HMvHwpp1t0BE4nYhODVCxNHnwMmJdjpU7Vh0zE9ogkc9YO002mzOIPc8"
               amount={totalPrice * 100}
               name="Ticket Booking"

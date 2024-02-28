@@ -6,6 +6,10 @@ const ticketBookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    mediaType: {
+        type: String,
+        required: true
+    },
     mediaName: {
         type: String,
         required: true

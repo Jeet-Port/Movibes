@@ -1,10 +1,34 @@
 import { useState, useEffect } from 'react';
 import { Grid, Button, Typography, useTheme } from '@mui/material';
 import uiConfigs from '../../configs/ui.configs';
+import userApi from "../../api/modules/user.api";
+import { toast } from "react-toastify";
 
 const TheaterLayout = ({ setSelectedSeats }) => {
     const [buttonStatus, setButtonStatus] = useState({});
+    const [seats, setSeats] = useState([]);
     const theme = useTheme();
+
+    useEffect(() => {
+        const fetchSeats = async () => {
+            try {
+                const { response, err } = await userApi.allSeats();
+                if (err) {
+                    toast.error(err.message);
+                } else {
+                    const allSeats = response.reduce((all, current) => {
+                        return all.concat(current.seats);
+                    }, []);
+                    setSeats(allSeats);
+                }
+            } catch (error) {
+                console.error("Error fetching seats:", error);
+                toast.error("Error fetching seats");
+            }
+        };
+
+        fetchSeats();
+    }, []);
 
     useEffect(() => {
         const updatedButtons = document.querySelectorAll('.seat-button');
@@ -20,7 +44,9 @@ const TheaterLayout = ({ setSelectedSeats }) => {
             ...prevStatus,
             [button]: !prevStatus[button]
         }));
-    };    
+    };
+
+    const isSeatBooked = (seat) => seats.includes(seat);
 
     const rowStyle = {
         display: 'flex',
@@ -42,7 +68,7 @@ const TheaterLayout = ({ setSelectedSeats }) => {
         [],
         ['18-normal', '19-normal', '20-normal', '21-normal', '22-normal', '23-normal', '24-normal'],
         ['25-normal', '26-normal', '27-normal', '28-normal', '29-normal', '30-normal', '31-normal'],
-    ]
+    ];
 
     return (
         <Grid container spacing={1} sx={{ backgroundColor: uiConfigs.style.gradientBgImage.light.backgroundImage }}>
@@ -54,9 +80,9 @@ const TheaterLayout = ({ setSelectedSeats }) => {
                         ) : (
                             <>
                                 {["Premium", "Executive", "Normal"].includes(button) ? (
-                                    <Typography 
-                                        key={buttonIndex} 
-                                        variant="button" 
+                                    <Typography
+                                        key={buttonIndex}
+                                        variant="button"
                                         sx={{ color: theme.palette.primary.main }}
                                     >
                                         {button}
@@ -67,11 +93,12 @@ const TheaterLayout = ({ setSelectedSeats }) => {
                                         variant="contained"
                                         onClick={() => handleButtonClick(button)}
                                         className="seat-button"
-                                        style={{ 
+                                        disabled={isSeatBooked(button)}
+                                        style={{
                                             backgroundColor: buttonStatus[button] ? 'lightblue' : 'inherit',
                                         }}
                                     >
-                                         {button.split("-")[0]}
+                                        {button.split("-")[0]}
                                     </Button>
                                 )}
                             </>
