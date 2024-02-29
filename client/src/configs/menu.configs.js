@@ -7,29 +7,30 @@ import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import React from "react";
 
 const main = [
     {
-        display: "home",
+        display: "Home",
         path: "/",
         icon: React.createElement(HomeOutlinedIcon),
         state: "home"
     },
     {
-        display: "movies",
+        display: "Movies",
         path: "/movie",
         icon: React.createElement(SlideshowOutlinedIcon),
         state: "movie"
     },
     {
-        display: "tv Series",
+        display: "Tv Series",
         path: "/tv",
         icon: React.createElement(LiveTvOutlinedIcon),
         state: "tv"
     },
     {
-        display: "search",
+        display: "Search",
         path: "/search",
         icon: React.createElement(SearchOffOutlinedIcon),
         state: "search"
@@ -38,24 +39,24 @@ const main = [
 
 const user = [
     {
-        display: "my-tickets",
+        display: "My Tickets",
         path: "/my-tickets",
         icon: React.createElement(ConfirmationNumberIcon)
     },
     {
-        display: "favorites",
+        display:"Favorites",
         path: "/favorites",
         icon: React.createElement(FavoriteOutlinedIcon),
         state: "favorite"
     },
     {
-        display: "reviews",
+        display: "Reviews",
         path: "/reviews",
         icon: React.createElement(RateReviewOutlinedIcon),
         state: "reviews"
     },
     {
-        display: "password update",
+        display: "Password Update",
         path: "/password-update",
         icon: React.createElement(LockResetOutlinedIcon),
         state: "password.update"
@@ -64,10 +65,16 @@ const user = [
 
 const admin = [
     {
-        display: "admin",
+        display: "Admin",
         path: "/admin",
         icon: React.createElement(AdminPanelSettingsIcon),
         state: "admin"
+    },
+    {
+        display: "Booking History",
+        path: "booking-history",
+        icon: React.createElement(ManageHistoryIcon),
+        state: "booking.history"
     }
 ]
 

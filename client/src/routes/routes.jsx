@@ -10,6 +10,7 @@ import ProtectedPage from "../components/common/ProtectedPage"
 import AdminPage from "../pages/AdminPage";
 import TicketBooking from "../pages/ TicketBooking";
 import MyTicket from "../pages/MyTicket";
+import BookingHistory from "../pages/BookingHistory";
 
 export const routesGen ={
     home: "/",
@@ -20,7 +21,9 @@ export const routesGen ={
     person: (id) => `/person/${id}`,
     favoriteList: "/favorites",
     reviewList: "/reviews",
-    passwordUpdate: "password-update"
+    passwordUpdate: "password-update",
+    admin: "/admin",
+    bookingHistory: "/booking-history",
 }
 
 const routes = [
@@ -98,6 +101,14 @@ const routes = [
             </ProtectedPage>
         ),
         state: "admin"
+    },
+    {
+        path: "/booking-history",
+        element: (
+            <ProtectedPage>
+                <BookingHistory />
+            </ProtectedPage>
+        )
     }
 ];
 

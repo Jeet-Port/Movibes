@@ -110,8 +110,14 @@ const bookTicket = async (req, res) => {
     });
 
     if (existingBooking) {
+      let previousTotal = existingBooking.total || 0;
+
       existingBooking.seats = [...existingBooking.seats, ...data.seats];
       existingBooking.seats = existingBooking.seats.filter(seat => seat !== null);
+
+      let newTotal = previousTotal + data.total; // Assuming data.total represents the total price of the new booking
+      existingBooking.total = newTotal;
+
       await existingBooking.save();
 
       return responseHandler.ok(res, existingBooking);
@@ -126,7 +132,6 @@ const bookTicket = async (req, res) => {
     return responseHandler.error(res);
   }
 };
-
 
 const getAllSeats = async (req, res) => {
   try {

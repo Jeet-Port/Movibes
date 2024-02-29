@@ -23,7 +23,6 @@ const MediaGrid = ({ medias, mediaType }) => {
         const fetchSeats = async () => {
             try {
                 const { response, err } = await userApi.allSeats();
-                console.log(response); // Log the response
                 if (err) {
                     toast.error(err.message);
                 } else {
@@ -38,11 +37,6 @@ const MediaGrid = ({ medias, mediaType }) => {
 
         fetchSeats();
     }, []);
-
-    useEffect(() => {
-        console.log(movieId);
-        console.log(typeof(movieId))
-    })
 
     return (
         <>

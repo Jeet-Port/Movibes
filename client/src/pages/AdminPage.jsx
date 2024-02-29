@@ -7,7 +7,6 @@ import mediaApi from "../api/modules/media.api";
 import MediaGrid from "../components/common/MediaGrid";
 import uiConfigs from "../configs/ui.configs";
 import { setGlobalLoading } from "../redux/features/globalLoadingSlice";
-import usePrevious from "../hooks/usePrevious";
 
 let timer;
 const timeout = 500;
