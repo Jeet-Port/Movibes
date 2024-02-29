@@ -23,7 +23,6 @@ const AdminPage = () => {
   const [mediaLoading, setMediaLoading] = useState(false);
   const [currPage, setCurrPage] = useState(1);
 
-  const prevMediaType = usePrevious(mediaType);
   const dispatch = useDispatch();
 
   const search = useCallback(

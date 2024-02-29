@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Stack, TextField, RadioGroup, Radio, FormControlLabel, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
@@ -15,6 +15,25 @@ const SetTicketBooking = ({ mediaId }) => {
 
   const [isSubmitRequest, setIsSubmitRequest] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  // const [isAvailable, setIsAvailable] = useState(false);
+  // const [media, setMedia] = useState()
+
+  // useEffect(() => {
+  //   const fetchMovie = async () => {
+  //     const { response, err } = await adminApi.getMovie({ mediaId });
+  //     if (response.isAvailable) {
+  //       setIsAvailable(true)
+  //       setMedia(response)
+  //     } else {
+  //       setErrorMessage(err.message);
+  //     }
+  //   };
+  //   fetchMovie();
+  // }, [mediaId]);
+
+  // useEffect(() => {
+  //   console.log(media);
+  // })
 
   const TicketBookingFrom = useFormik({
     initialValues: {
@@ -24,7 +43,6 @@ const SetTicketBooking = ({ mediaId }) => {
       premium: ""
     },
     onSubmit: async values => {
-      console.log(values);
       values["mediaId"] = mediaId;
       setErrorMessage('');
       setIsSubmitRequest(true);
