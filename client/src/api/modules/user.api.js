@@ -8,6 +8,7 @@ const userEndpoints = {
     passwordUpdate: "user/update-password",
     bookTicket: "user/ticket-booking",
     allSeats: "user/all-seats",
+    userTicket: "user/user-ticket",
 }
 
 const userApi = {
@@ -87,7 +88,14 @@ const userApi = {
 
           return { response };
       } catch (err) { return { err }; }
-  },
+    },
+    userTicket:async () => {
+      try {
+        const response = await privateClient.get(userEndpoints.userTicket);
+
+        return { response };
+      } catch (err) { return { err }; }
+    },
 };
 
 export default userApi;

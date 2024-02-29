@@ -136,4 +136,10 @@ router.get(
     userController.getAllSeats
 );
 
+router.get(
+    "/user-ticket",
+    tokenMiddleware.auth,
+    userController.userTicket
+);
+
 export default router;

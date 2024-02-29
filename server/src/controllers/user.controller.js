@@ -140,6 +140,19 @@ const getAllSeats = async (req, res) => {
   }
 };
 
+const userTicket = async (req, res) => {
+  try {
+    const user = req.user.username
+    const ticket = await ticketBookingModel.find({  username: user });
+
+    responseHandler.ok(res, ticket);
+
+  } catch (error) {
+    console.error("Error fetching user Ticket:", error);
+    responseHandler.error(res, "Error fetching user ticket");
+  }
+};
+
 export default {
   signup,
   signin,
@@ -147,4 +160,5 @@ export default {
   updatePassword,
   bookTicket,
   getAllSeats,
+  userTicket,
 };

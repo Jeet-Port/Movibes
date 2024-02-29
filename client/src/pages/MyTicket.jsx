@@ -1,4 +1,4 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box, Grid, Modal, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -19,10 +19,11 @@ const MyTicket = () => {
   const [showQRCode, setShowQRCode] = useState(false);
 
   useEffect(() => {
-    const fetchSeats = async () => {
+    const fetchTicket = async () => {
       try {
         dispatch(setGlobalLoading(true));
-        const { response, err } = await userApi.allSeats();
+        const { response, err } = await userApi.userTicket();
+        console.log(response);
         dispatch(setGlobalLoading(false));
         if (response) {
           setTicket(response);
@@ -34,7 +35,7 @@ const MyTicket = () => {
       }
     };
 
-    fetchSeats();
+    fetchTicket();
   }, []);
 
   useEffect(() => {
@@ -78,22 +79,26 @@ const MyTicket = () => {
   return (
     <Box sx={{ ...uiConfigs.style.mainContent }}>
       <Container header={"Your Tickets"}>
-        <Grid container spacing={1} sx={{ marginRight: "-8px!important" }}>
-          {mediaItems.map((item, index) => (
-            <Grid item xs={6} sm={4} md={3} key={index}>
-              <MediaItem media={item.media} mediaType={item.mediaType} />
-              <LoadingButton
-                fullWidth
-                variant="contained"
-                sx={{ marginTop: 2 }}
-                loadingPosition="start"
-                onClick={() => toggleQRCode(ticket[index])} 
-              >
-                Show QR
-              </LoadingButton>
-            </Grid>
-          ))}
-        </Grid>
+        {mediaItems.length === 0 ? (
+          <Typography variant="body1">No tickets found.</Typography>
+        ) : (
+          <Grid container spacing={1} sx={{ marginRight: "-8px!important" }}>
+            {mediaItems.map((item, index) => (
+              <Grid item xs={6} sm={4} md={3} key={index}>
+                <MediaItem media={item.media} mediaType={item.mediaType} />
+                <LoadingButton
+                  fullWidth
+                  variant="contained"
+                  sx={{ marginTop: 2 }}
+                  loadingPosition="start"
+                  onClick={() => toggleQRCode(ticket[index])} 
+                >
+                  Show QR
+                </LoadingButton>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
       {/* Modal to display QR code */}
       <Modal open={showQRCode} onClose={() => setShowQRCode(false)}>
@@ -110,12 +115,13 @@ const MyTicket = () => {
           }}
         >
           {selectedTicket && (
-              <QRCode value={JSON.stringify(selectedTicket)} size={300} /> 
+            <QRCode value={JSON.stringify(selectedTicket)} size={300} /> 
           )}
         </Box>
       </Modal>
     </Box>
   );
+  
 };
 
 export default MyTicket;
