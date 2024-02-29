@@ -35,23 +35,31 @@ const BookingHistory = () => {
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>Booking ID</TableCell>
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>User Name</TableCell>
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>Movie Name</TableCell>
+              <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>Show Time</TableCell>
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>Total Seats</TableCell>
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main, maxWidth: "300px", overflow: "hidden", textOverflow: "ellipsis" }}>Seat Number</TableCell>
               <TableCell sx={{ textAlign: 'center', color: theme.palette.primary.main }}>Total Price</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {ticketList.map((ticket, index) => (
-                <TableRow key={index}>
-                  <TableCell style={{ textAlign: 'center' }}>{index + 1}</TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>{ticket._id}</TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>{ticket.username}</TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>{ticket.mediaName}</TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>{ticket.seats.length}</TableCell>
-                  <TableCell style={{ textAlign: 'center', maxWidth: "300px", overflow: "hidden", textOverflow: "ellipsis"  }}>{ticket.seats.join(', ')}</TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>{ticket.total}</TableCell>
-                </TableRow>
-            ))}
+          {ticketList.length > 0 ? (
+            ticketList.map((ticket, index) => (
+              <TableRow key={index}>
+                <TableCell style={{ textAlign: 'center' }}>{index + 1}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket._id}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket.username}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket.mediaName}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket.showTime}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket.seats.length}</TableCell>
+                <TableCell style={{ textAlign: 'center', maxWidth: "300px", overflow: "hidden", textOverflow: "ellipsis" }}>{ticket.seats.join(', ')}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>{ticket.total}</TableCell>
+              </TableRow>
+            ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={7} style={{ textAlign: 'center' }}>No records found</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
     </>
